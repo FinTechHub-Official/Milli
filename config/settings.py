@@ -40,7 +40,10 @@ INSTALLED_APPS = [
 # Project apps
 INSTALLED_APPS += [
     'api.v1.user',
+    'api.v1.proposal',
+    'api.v1.utilis',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -76,7 +79,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-print(DEBUG)
 if DEBUG:
     DATABASES = {
         'default': {
@@ -128,7 +130,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-STATIC_URL = 'static-media/'
+STATIC_URL = 'static-media/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR / 'static-media/static')]
 STATIC_ROOT = os.path.join(BASE_DIR / 'static-media/staticfiles')
 
