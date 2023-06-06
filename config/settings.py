@@ -35,12 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+    'rest_framework.authtoken',
 
-# Project apps
-INSTALLED_APPS += [
+    # apps
     'api.v1.user',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -128,13 +128,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
-STATIC_URL = 'static-media/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR / 'static-media/static')]
-STATIC_ROOT = os.path.join(BASE_DIR / 'static-media/staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR / 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR / 'staticfiles/root')
 
 
-MEDIA_URL = 'static-media/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR / 'static-media/media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR / 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -143,3 +143,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # User Model
 AUTH_USER_MODEL = 'user.User'
+
+
+
+import datetime
+JWT_AUTH = {
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=15),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer'
+}
+

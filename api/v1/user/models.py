@@ -1,3 +1,4 @@
+from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, AbstractUser
 from api.v1.user.enums import UserRole
@@ -19,8 +20,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = CustomManager()
 
+    def format(self):
+        return {
+            "id": self.id,
+            "first_name": self.first_name,
+            "last_name": self.first_name,
+            "phone_number": self.phone_number,
+            "role": self.role,
+            "is_active": self.is_active,
+            "is_stuff": self.is_stuff,
+        }
+
     def __str__(self) -> str:
         return self.phone_number
-    
+
+
 
 
