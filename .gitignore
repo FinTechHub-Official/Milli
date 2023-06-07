@@ -161,7 +161,8 @@ cython_debug/
 
 
 # CUSTOM FOLDERS
-migrations/
+migrations/*
+!migrations/__init__.py
 static-media/
 Pipfile
 Pipfile.lock
