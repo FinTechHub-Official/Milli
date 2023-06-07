@@ -155,8 +155,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # User Model
 AUTH_USER_MODEL = 'user.User'
-<<<<<<< HEAD
-=======
 
 
 # CORS CONF
@@ -181,4 +179,3 @@ CORS_ALLOW_HEADERS = (
     "x-csrftoken",
     "x-requested-with",
 )
->>>>>>> 8e9d59e (db fixed)
