@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-if DEBUG:
+if not DEBUG:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -195,6 +195,7 @@ REST_FRAMEWORK = {
         'rest_framework_swagger.renderers.SwaggerUIRenderer',
         'rest_framework_swagger.renderers.OpenAPIRenderer',
     ],
+<<<<<<< HEAD
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
@@ -237,3 +238,19 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+# SIMPLE_JWT = {
+#   "TOKEN_OBTAIN_SERIALIZER": "api.v1.user.serializers.MyTokenObtainPairSerializer",
+# }
+=======
+SIMPLE_JWT = {
+  "TOKEN_OBTAIN_SERIALIZER": "api.v1.user.serializers.MyTokenObtainPairSerializer",
+}
+=======
+}
+>>>>>>> d3bee24 (deployed from server)
+>>>>>>> a745e24 (deployed from server)
+>>>>>>> 788e198 (deployed from server)
