@@ -9,7 +9,7 @@ class Proposal(models.Model):
     father_name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=8, choices=ObjectStatus.choices(), default=ObjectStatus.new)
+    status = models.CharField(max_length=8, choices=ObjectStatus.choices(), default=ObjectStatus.choices()[0][0])
 
 
     def __str__(self):

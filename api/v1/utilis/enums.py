@@ -8,7 +8,7 @@ class ObjectStatus(Enum):
 
     @classmethod
     def choices(cls):
-        return (
-            (key.name, key.value)
+        return [
+            (key.value, key.name)
             for key in cls
-        )
+        ]
