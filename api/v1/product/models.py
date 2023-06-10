@@ -1,15 +1,13 @@
 from django.db import models
+from api.v1.utilis.abstract_classes import AbstractBaseClass
 
 
-class Category(models.Model):
-    title_uz = models.CharField(max_length=255)
-    title_ru = models.CharField(max_length=255)
-    description_uz = models.CharField(max_length=300, blank=True, null=True)
-    description_ru = models.CharField(max_length=300, blank=True, null=True)
-    parent = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True)
+class Category(AbstractBaseClass):
+    icon = models.ImageField(upload_to='product/category/icons/', blank=True, null=True)
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True, related_name='children')
 
     def __str__(self) -> str:
-        return self.title
+        return self.title_ln
 
 
 # class Product(models.Model):

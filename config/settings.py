@@ -47,6 +47,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# CUSTOM MIDDLEWARE
+MIDDLEWARE += [
+    'api.v1.utilis.middlewares.LanguageMiddleware'
+]
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
@@ -164,6 +169,7 @@ CORS_ALLOW_HEADERS = (
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
+    'HTTP_ACCEPT_LANGUAGE'
 )
 
 

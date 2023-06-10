@@ -32,7 +32,8 @@ urlpatterns = [
     path('milli-redoc/', schema_view.with_ui('redoc', cache_timeout=0),name='schema-redoc'),
 
     # API V1
-    path('api/v1/proposal/', include("api.v1.proposal.urls"))
+    path('api/v1/proposal/', include("api.v1.proposal.urls")),
+    path('api/v1/product/', include("api.v1.product.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
