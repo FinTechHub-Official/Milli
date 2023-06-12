@@ -36,5 +36,30 @@ class CategoryAPi(APIView):
         return Response(serializer_without_paginator_res(serializer))
     
 
-    # def patch()
+    def patch(self, request, *args, **kwargs):
+        category_id = request.query_params.get('category_id')
+        if not category_id:
+            return Response({})
+        category = Category.objects.filter(id=category_id).first()
+        if not category:
+            return Response({})
+        serializer = CategoryCreateSerialzier(data=request.POST, instance=category)
+        if not serializer.is_valid():
+            return Response(serializer_error_response(serializer.errors))
+        serializer.save()
+        return Response(success_response())
+
+    def delete(self, request, *args, **kwargs):
+        category_id = request.query_params.get('category_id')
+        if not category_id:
+            return Response({})
+        category = Category.objects.filter(id=category_id).first()
+        if not category:
+            return Response({})
+        category.is_active = False
+        category.is_deleted = True
+        category.save()
+        return Response(success_response())
+
+
 

@@ -24,7 +24,6 @@ class LanguageMiddleware(object):
             
             language = request.META.get('HTTP_ACCEPT_LANGUAGE')
             if language not in ['uz-LN', 'uz-KR', 'ru-RU', 'en-US']:
-                print(language)
                 response = Response(lang_error_response(lang=language))
                 response.accepted_renderer = JSONRenderer()
                 response.accepted_media_type = "application/json"

@@ -10,31 +10,36 @@ class Category(AbstractBaseClass):
         return self.title_ln
 
 
-# class Product(models.Model):
-#     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-#     title = models.CharField(max_length=255)
-#     title_ru = models.CharField(max_length=255)
-#     description = models.TextField(blank=True, null=True)
-#     description_ru = models.TextField(blank=True, null=True)
-#     attributes = models.JSONField(blank=True, null=True, default=dict)
-#     attributes_ru = models.JSONField(blank=True, null=True, default=dict)
+class Product(AbstractBaseClass):
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    attributes_ln = models.JSONField(blank=True, null=True, default=dict)
+    attributes_kr = models.JSONField(blank=True, null=True, default=dict)
+    attributes_ru = models.JSONField(blank=True, null=True, default=dict)
+    attributes_en = models.JSONField(blank=True, null=True, default=dict)
 
-#     def __str__(self) -> str:
-#         return self.title
+    def __str__(self) -> str:
+        return self.title_ln
 
 
-# class Characteristic(models.Model):
-#     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-#     title = models.CharField(max_length=255)
+class Characteristic(AbstractBaseClass):
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
 
-#     def __str__(self) -> str:
-#         return f"{self.product.title} - {self.title}"
+    def __str__(self) -> str:
+        return f"{self.product.title_ln} - {self.title_ln}"
 
 
-# class CharacteristicItem(models.Model):
-#     characteristic = models.ForeignKey(Characteristic, on_delete=models.SET_NULL, null=True)
-#     title = models.CharField(max_length=255)
-#     value = models.CharField(max_length=255)
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    image = models.ImageField(upload_to='product/images/')
 
-#     def __str__(self) -> str:
-#         return self.title
+    def __str__(self) -> str:
+        return self.product.title_ln
+
+
+class ProductPrice(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    price = models.PositiveIntegerField()
+
+    def __str__(self) -> str:
+        return self.product.title_ln

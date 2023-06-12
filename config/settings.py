@@ -26,6 +26,7 @@ INSTALLED_APPS += [
     'api.v1.proposal',
     'api.v1.utilis',
     'api.v1.product',
+    'api.v1.warehouse',
 ]
 
 # Third party apps
