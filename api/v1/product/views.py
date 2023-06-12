@@ -24,18 +24,17 @@ class CategoryAPi(APIView):
         return Response(success_response())
 
     # @swagger_auto_schema(request_body=CategoryRetrieveSerialzer)
-    @swagger_auto_schema(
-        manual_parameters=[
-            openapi.Parameter(
+    @swagger_auto_schema(manual_parameters=[openapi.Parameter(
                 'HTTP-ACCEPR-LANGUAGE',
                 openapi.IN_HEADER,
                 description='Custom header description',
                 type=openapi.TYPE_STRING,
-            ),
-        ]
-    )
+            ),])
     def get(self, request, *args, **kwargs):
         categories = Category.objects.select_related("parent").filter(parent__isnull=True)
         serializer = CategoryRetrieveSerialzer(categories, many=True, context = {'lang': request.lang})
         return Response(serializer_without_paginator_res(serializer))
+    
+
+    # def patch()
 

@@ -6,4 +6,5 @@ def get_not_lang_api():
         '/milli-api-doc/',
         '/milli-redoc/',
         '/api/v1/proposal/',
+        '/api/v1/user/token/',
     ]

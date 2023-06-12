@@ -13,6 +13,8 @@ class AbstractBaseClass(models.Model):
     description_en = models.CharField(max_length=300, blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
+    is_deleted = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     class Meta:
         abstract = True
