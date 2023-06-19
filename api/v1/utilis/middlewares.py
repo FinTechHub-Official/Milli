@@ -21,7 +21,7 @@ class LanguageMiddleware(object):
                 response.renderer_context = {}
                 response.render()
                 return response
-            
+
             language = request.META.get('HTTP_ACCEPT_LANGUAGE')
             if language not in ['uz-LN', 'uz-KR', 'ru-RU', 'en-US']:
                 response = Response(lang_error_response(lang=language))

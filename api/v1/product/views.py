@@ -13,7 +13,10 @@ from api.v1.utilis.custom_responses import (
     success_response
 )
 
+
 class CategoryAPi(APIView):
+    permission_classes = ()
+
 
     # @swagger_auto_schema(request_body=CategoryCreateSerialzier)
     def post(self, request, *args, **kwargs):
