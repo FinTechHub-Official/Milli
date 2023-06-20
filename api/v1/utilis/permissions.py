@@ -8,5 +8,5 @@ class IsAdmin(BasePermission):
     def has_permission(self, request, view):
         if not isinstance(request.user, AnonymousUser):
             # if request.method in SAFE_METHODS:
-            return request.user.role == "admin"
+            return bool(request.user.role == "admin")
         

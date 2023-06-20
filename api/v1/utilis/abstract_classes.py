@@ -18,3 +18,15 @@ class AbstractBaseClass(models.Model):
 
     class Meta:
         abstract = True
+
+
+class AbstractDefaultClass(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_deleted = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        abstract = True
+
+    def __str__(self) -> str:
+        return self.is_active

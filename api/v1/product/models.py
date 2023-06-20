@@ -1,5 +1,5 @@
 from django.db import models
-from api.v1.utilis.abstract_classes import AbstractBaseClass
+from api.v1.utilis.abstract_classes import AbstractBaseClass, AbstractDefaultClass
 
 
 class Category(AbstractBaseClass):
@@ -11,6 +11,7 @@ class Category(AbstractBaseClass):
 
 
 class Product(AbstractBaseClass):
+    customer = models.ForeignKey('warehouse.Customer', on_delete=models.SET_NULL, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     attributes_ln = models.JSONField(blank=True, null=True, default=dict)
     attributes_kr = models.JSONField(blank=True, null=True, default=dict)
@@ -29,17 +30,12 @@ class Characteristic(AbstractBaseClass):
         return f"{self.product.title_ln} - {self.title_ln}"
 
 
-class ProductImage(models.Model):
+class ProductImage(AbstractDefaultClass):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    characteristic = models.ForeignKey(Characteristic, on_delete=models.SET_NULL, null=True)
     image = models.ImageField(upload_to='product/images/')
 
     def __str__(self) -> str:
         return self.product.title_ln
 
 
-class ProductPrice(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    price = models.PositiveIntegerField()
-
-    def __str__(self) -> str:
-        return self.product.title_ln

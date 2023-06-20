@@ -13,7 +13,7 @@ class LanguageMiddleware(object):
         self.get_response = get_response
 
     def __call__(self, request, *args, **kwargs):
-        if not any(request.path.startswith(endpoint) for endpoint in get_not_lang_api()):
+        if request.path  in get_not_lang_api():
             if not request.META.get('HTTP_ACCEPT_LANGUAGE'):
                 response = Response(lang_not_given_response())
                 response.accepted_renderer = JSONRenderer()

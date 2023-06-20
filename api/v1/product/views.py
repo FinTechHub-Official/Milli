@@ -1,7 +1,8 @@
 from .models import Category
 from .serializers import (
     CategoryCreateSerialzier,
-    CategoryRetrieveSerialzer
+    CategoryRetrieveSerialzer,
+    ProductCreateSerializer
 )
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -22,7 +23,7 @@ class CategoryAPi(APIView):
     def post(self, request, *args, **kwargs):
         serializer = CategoryCreateSerialzier(request)
         if not serializer.is_valid():
-            return Response(serializer_error_response(serializer))
+            return Response(serializer_error_response(serializer.errors))
         serializer.save()
         return Response(success_response())
 
@@ -65,4 +66,12 @@ class CategoryAPi(APIView):
         return Response(success_response())
 
 
+class ProductCreateAPi(APIView):
 
+    def post(self, request, *args, **kwargs):
+        serializer = ProductCreateSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer_error_response(serializer.errors))
+        serializer.save()
+        
+        return Response(success_response())

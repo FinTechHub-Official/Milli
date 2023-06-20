@@ -35,6 +35,7 @@ urlpatterns = [
     path('api/v1/proposal/', include("api.v1.proposal.urls")),
     path('api/v1/product/', include("api.v1.product.urls")),
     path('api/v1/user/', include("api.v1.user.urls")),
+    path('api/v1/warehouse/', include("api.v1.warehouse.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

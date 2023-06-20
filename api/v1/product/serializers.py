@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from rest_framework.fields import empty
-from .models import Category
+from .models import Category, Product
 
 
 class CategoryCreateSerialzier(serializers.ModelSerializer):
@@ -44,3 +44,28 @@ class CategoryRetrieveSerialzer(serializers.ModelSerializer):
         res['title'] = getattr(instance, title_field, None)
         res['description'] = getattr(instance, description_field, None)
         return res
+
+
+class ProductCreateSerializer(serializers.ModelSerializer):
+    characteristic = serializers.ListField()
+    images = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = (
+            'customer', 'category', 'title_ln', 'title_kr', 'title_ru', 'title_en',
+            'description_ln', 'description_kr', 'description_ru', 'description_en',
+            'attributes_ln', 'attributes_kr', 'attributes_ru', 'attributes_en',
+            'characteristic', 'images'
+        )
+    
+
+    def create(self, validated_data):
+        print(validated_data.get('characteristic'))
+        res = super().create(validated_data)
+        print(res)
+        return res
+    
+    def save(self, **kwargs):
+        print(self.validated_data)
+        return super().save(**kwargs)
