@@ -4,7 +4,7 @@ from api.v1.product.models import (
     Characteristic,
 )
 from api.v1.utilis.abstract_classes import AbstractDefaultClass
-
+from api.v1.user.models import Seller
 
 class Warehouse(AbstractDefaultClass):
     title = models.CharField(max_length=100)
@@ -14,19 +14,9 @@ class Warehouse(AbstractDefaultClass):
         return self.title
 
 
-class Customer(AbstractDefaultClass):
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=100, unique=True)
-    passport = models.CharField(max_length=100, blank=True, null=True)
-
-    def __str__(self) -> str:
-        return self.phone_number
-
-
 class ImportToWarehouseCart(AbstractDefaultClass):
     warehouse = models.ForeignKey(Warehouse, on_delete=models.SET_NULL, null=True)
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+    seller = models.ForeignKey(Seller, on_delete=models.SET_NULL, null=True)
 
 
 class ImportProductToWarehouse(AbstractDefaultClass):
@@ -40,7 +30,7 @@ class ImportProductToWarehouse(AbstractDefaultClass):
 class ProductInWarehouse(AbstractDefaultClass):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     warehouse = models.ForeignKey(Warehouse, on_delete=models.SET_NULL, null=True)
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
+    seller = models.ForeignKey(Seller, on_delete=models.SET_NULL, null=True)
     
     def __str__(self) -> str:
         return self.product.title_ln

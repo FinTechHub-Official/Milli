@@ -7,9 +7,13 @@ from api.v1.utilis.custom_responses import (
 from api.v1.utilis.permissions import (
     IsAdmin,
 )
+from api.v1.utilis.generic_mixins import (
+    CustomCreateAPIView,
+)
 from rest_framework.permissions import IsAuthenticated
-from .serializers import CustomerSerialzier
 from rest_framework.response import Response
+from rest_framework.generics import CreateAPIView
+from api.v1.warehouse.serializers import ImportToWarehouseCartSerialzier
 
 
 class ImportToWarehouseApi(APIView):
@@ -19,17 +23,7 @@ class ImportToWarehouseApi(APIView):
         pass
 
 
-class CustomerAPi(APIView):
+class ImportToWarehouseCartApi(CustomCreateAPIView):
     permission_classes = (IsAuthenticated, IsAdmin)
-
-    def post(self, request, *args, **kwargs):
-        serializer = CustomerSerialzier(data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer_error_response(serializer.errors))
-        serializer.save()
-        return Response(success_response())
-    
-    
-
-
+    serializer_class = ImportToWarehouseCartSerialzier
 

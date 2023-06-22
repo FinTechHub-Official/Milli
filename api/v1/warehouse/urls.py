@@ -1,7 +1,10 @@
 from django.urls import path
-from .views import CustomerAPi
+from .views import (
+    ImportToWarehouseCartApi,
+)
 
 
 urlpatterns = [
-    path('customer/', CustomerAPi.as_view()),
+    path("import-cart/", ImportToWarehouseCartApi.as_view()),
 ]
+

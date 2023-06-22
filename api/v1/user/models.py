@@ -1,7 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, AbstractUser
 from api.v1.user.enums import UserRole
-from api.v1.user.managers import CustomManager
+from api.v1.user.managers import (
+    CustomManager,
+    ClientManager,
+    SellerManager
+)
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -23,4 +27,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         return self.phone_number
     
 
+class Client(User):
+    objects = ClientManager()
 
+
+class Seller(User):
+    objects = SellerManager()

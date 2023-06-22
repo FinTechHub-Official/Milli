@@ -1,6 +1,10 @@
 from django.db import models
-from api.v1.utilis.abstract_classes import AbstractBaseClass, AbstractDefaultClass
-
+from api.v1.utilis.abstract_classes import (
+    AbstractBaseClass,
+    AbstractBaseTitleClass,
+    AbstractDefaultClass
+)
+from api.v1.user.models import Seller
 
 class Category(AbstractBaseClass):
     icon = models.ImageField(upload_to='product/category/icons/', blank=True, null=True)
@@ -11,7 +15,7 @@ class Category(AbstractBaseClass):
 
 
 class Product(AbstractBaseClass):
-    customer = models.ForeignKey('warehouse.Customer', on_delete=models.SET_NULL, null=True, blank=True)
+    seller = models.ForeignKey(Seller, on_delete=models.SET_NULL, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     attributes_ln = models.JSONField(blank=True, null=True, default=dict)
     attributes_kr = models.JSONField(blank=True, null=True, default=dict)
@@ -22,12 +26,15 @@ class Product(AbstractBaseClass):
         return self.title_ln
 
 
-class Characteristic(AbstractBaseClass):
+class Characteristic(AbstractBaseTitleClass):
+    is_title = models.BooleanField(default=False)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    parent = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
+    parent = models.ForeignKey(
+        'self', on_delete=models.SET_NULL, null=True, blank=True, related_name='parent_characteristic'
+    )
 
     def __str__(self) -> str:
-        return f"{self.product.title_ln} - {self.title_ln}"
+        return f"{self.title_ln}"
 
 
 class ProductImage(AbstractDefaultClass):

@@ -1,17 +1,24 @@
 from rest_framework import serializers
+
+from api.v1.user.models import Seller
 from .models import (
-    Customer,
-    ImportProductToWarehouse
+    ImportProductToWarehouse,
+    ImportToWarehouseCart,
+    Warehouse
 )
-
-
-class CustomerSerialzier(serializers.ModelSerializer):
-    class Meta:
-        model = Customer
-        fields = ('id', 'first_name', 'last_name', 'phone_number')
 
 
 class ImportToWarehouseSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImportProductToWarehouse
-        fields = ('product', 'warehouse', 'customer', 'import_price', 'sell_price', 'quantity')
+        fields = ('product', 'warehouse', 'seller', 'import_price', 'sell_price', 'quantity')
+
+
+class ImportToWarehouseCartSerialzier(serializers.ModelSerializer):
+    warehouse = serializers.PrimaryKeyRelatedField(queryset=Warehouse.objects.all(), required=True)
+    seller = serializers.PrimaryKeyRelatedField(queryset=Seller.objects.all(), required=True)
+
+    class Meta:
+        model = ImportToWarehouseCart
+        fields = ('warehouse', 'seller')
+

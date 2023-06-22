@@ -1,10 +1,16 @@
 from django.contrib import admin
 
 from .models import (
-    Customer,
+    ImportToWarehouseCart,
+    Warehouse
 )
 
 
-@admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('id', 'first_name', 'last_name', 'phone_number')
+@admin.register(ImportToWarehouseCart)
+class ImportToWarehouseCartAdmin(admin.ModelAdmin):
+    list_display = ("id", 'warehouse', 'seller', 'created_at', 'is_active', 'is_deleted')
+
+
+@admin.register(Warehouse)
+class WarehouseAdmin(admin.ModelAdmin):
+    list_display = ("id", 'title', 'is_active', 'is_deleted')

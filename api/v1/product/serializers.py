@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework.fields import empty
-from .models import Category, Product
+from .models import Category, Characteristic, Product
+from django.db import transaction
 
 
 class CategoryCreateSerialzier(serializers.ModelSerializer):
@@ -53,19 +54,33 @@ class ProductCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = (
-            'customer', 'category', 'title_ln', 'title_kr', 'title_ru', 'title_en',
+            'seller', 'category', 'title_ln', 'title_kr', 'title_ru', 'title_en',
             'description_ln', 'description_kr', 'description_ru', 'description_en',
             'attributes_ln', 'attributes_kr', 'attributes_ru', 'attributes_en',
             'characteristic', 'images'
         )
     
+    def create_characteristic(self, product_id, characteristics, parent_id=None):
+        with transaction.atomic():
+            for character in characteristics:
+                parent_character = Characteristic(
+                    product_id=product_id,
+                    parent_id=parent_id,
+                    title_ln=character.get('title_ln'),
+                    title_kr=character.get('title_kr'),
+                    title_ru=character.get('title_ru'),
+                    title_en=character.get('title_en')
+                )
+                parent_character.save()
+                if character.get("values"):
+                    self.create_characteristic(product_id, character.get("values"), parent_character.id)
 
     def create(self, validated_data):
-        print(validated_data.get('characteristic'))
         res = super().create(validated_data)
-        print(res)
+        characteristics = validated_data.get('characteristic')
+        if characteristics:
+            self.create_characteristic(res.id, characteristics)
         return res
     
     def save(self, **kwargs):
-        print(self.validated_data)
         return super().save(**kwargs)

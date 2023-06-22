@@ -20,6 +20,20 @@ class AbstractBaseClass(models.Model):
         abstract = True
 
 
+class AbstractBaseTitleClass(models.Model):
+    title_ln = models.CharField(max_length=255)
+    title_kr = models.CharField(max_length=255)
+    title_ru = models.CharField(max_length=255)
+    title_en = models.CharField(max_length=255)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_deleted = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        abstract = True
+
+
 class AbstractDefaultClass(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False)

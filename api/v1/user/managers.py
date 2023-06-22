@@ -1,4 +1,5 @@
 from django.contrib.auth.base_user import BaseUserManager
+from django.db.models import manager
 
 
 class CustomManager(BaseUserManager):
@@ -24,3 +25,13 @@ class CustomManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(phone_number, role, password, **extra_fields)
+
+
+class ClientManager(manager.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(role="client")
+    
+
+class SellerManager(manager.Manager):
+    def get_queryset(self):
+        return super().get_queryset().filter(role="seller")
