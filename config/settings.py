@@ -96,15 +96,15 @@ if DEBUG:
     }
 else:
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.'+os.getenv('DB_ENGINE'),
-        'NAME': os.getenv("DB_NAME"),
-        'USER': os.getenv("DB_USER"),
-        'PASSWORD': os.getenv("DB_PASSWORD"),
-        'HOST': 'localhost',
-        'PORT': '',
+        'default': {
+            'ENGINE': 'django.db.backends.'+os.getenv('DB_ENGINE'),
+            'NAME': os.getenv("DB_NAME"),
+            'USER': os.getenv("DB_USER"),
+            'PASSWORD': os.getenv("DB_PASSWORD"),
+            'HOST': 'localhost',
+            'PORT': '',
+        }
     }
-}
 
 
 # Password validation
@@ -139,7 +139,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
+# ht tps://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
 STATIC_URL = '/static/'
@@ -194,11 +194,8 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
         'rest_framework_swagger.renderers.SwaggerUIRenderer',
         'rest_framework_swagger.renderers.OpenAPIRenderer',
-    ],
-<<<<<<< HEAD
-    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ]
 }
 
 # JWT
@@ -229,7 +226,10 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_LIFETIME": timedelta(days=1),
     "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
 
+<<<<<<< HEAD
     # "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
+=======
+>>>>>>> 452ada1 (..)
     "TOKEN_OBTAIN_SERIALIZER": "api.v1.user.serializers.MyTokenObtainPairSerializer",
     "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
     "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
@@ -239,7 +239,10 @@ SIMPLE_JWT = {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 241ee74 (..)
 
 <<<<<<< HEAD
 # SIMPLE_JWT = {
@@ -253,4 +256,9 @@ SIMPLE_JWT = {
 }
 >>>>>>> d3bee24 (deployed from server)
 >>>>>>> a745e24 (deployed from server)
+<<<<<<< HEAD
 >>>>>>> 788e198 (deployed from server)
+=======
+=======
+>>>>>>> 452ada1 (..)
+>>>>>>> 241ee74 (..)
