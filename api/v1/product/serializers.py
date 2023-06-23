@@ -82,5 +82,3 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             self.create_characteristic(res.id, characteristics)
         return res
     
-    def save(self, **kwargs):
-        return super().save(**kwargs)

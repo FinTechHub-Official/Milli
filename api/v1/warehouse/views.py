@@ -13,14 +13,15 @@ from api.v1.utilis.generic_mixins import (
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView
-from api.v1.warehouse.serializers import ImportToWarehouseCartSerialzier
+from api.v1.warehouse.serializers import (
+    ImportToWarehouseCartSerialzier,
+    ImportToWarehouseSerializer
+)
 
 
-class ImportToWarehouseApi(APIView):
+class ImportToWarehouseApi(CustomCreateAPIView):
     # permission_classes = ()
-
-    def post(self, request, *args, **kwargs):
-        pass
+    serializer_class = ImportToWarehouseSerializer
 
 
 class ImportToWarehouseCartApi(CustomCreateAPIView):

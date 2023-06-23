@@ -43,4 +43,4 @@ class AbstractDefaultClass(models.Model):
         abstract = True
 
     def __str__(self) -> str:
-        return self.is_active
+        return f"{self.is_active}"
