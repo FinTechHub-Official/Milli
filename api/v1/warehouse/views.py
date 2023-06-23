@@ -20,7 +20,7 @@ from api.v1.warehouse.serializers import (
 
 
 class ImportToWarehouseApi(CustomCreateAPIView):
-    # permission_classes = ()
+    permission_classes = (IsAuthenticated, IsAdmin)
     serializer_class = ImportToWarehouseSerializer
 
 

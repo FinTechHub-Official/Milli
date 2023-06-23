@@ -2,6 +2,7 @@ from rest_framework import serializers
 from rest_framework.fields import empty
 from .models import Category, Characteristic, Product
 from django.db import transaction
+import datetime
 
 
 class CategoryCreateSerialzier(serializers.ModelSerializer):
@@ -75,10 +76,32 @@ class ProductCreateSerializer(serializers.ModelSerializer):
                 if character.get("values"):
                     self.create_characteristic(product_id, character.get("values"), parent_character.id)
 
+    # def save_images(self, images, product_id):
+    #     product_images = []
+    #     for file in images:
+    #         f_time = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+    #         file_name = f"{f_time}_{file.name}"
+    #         saved_file_path = os.path.join('media', 'sourcing', 'comment', 'files', file_name)
+    #         os.makedirs(os.path.dirname(saved_file_path), exist_ok=True)
+    #         with open(saved_file_path, 'wb') as destination:
+    #             for chunk in file.chunks():
+    #                 destination.write(chunk)
+    #         comment_files.append(
+    #             SourcingCommentFile(
+    #                 comment_id=comment_id,
+    #                 creator_id=user_id,
+    #                 uploaded_file=saved_file_path
+    #             )
+    #         )
+    #     SourcingCommentFile.objects.bulk_create(comment_files)
+
     def create(self, validated_data):
         res = super().create(validated_data)
         characteristics = validated_data.get('characteristic')
+        images = validated_data.get('images')
         if characteristics:
             self.create_characteristic(res.id, characteristics)
+        if images:
+            pass
         return res
     

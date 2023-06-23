@@ -13,19 +13,14 @@ from api.v1.utilis.custom_responses import (
     serializer_without_paginator_res,
     success_response
 )
+from rest_framework.permissions import IsAuthenticated
+from api.v1.utilis.permissions import IsAdmin
+from api.v1.utilis.generic_mixins import CustomCreateAPIView
 
 
-class CategoryAPi(APIView):
-    permission_classes = ()
-
-
-    # @swagger_auto_schema(request_body=CategoryCreateSerialzier)
-    def post(self, request, *args, **kwargs):
-        serializer = CategoryCreateSerialzier(request)
-        if not serializer.is_valid():
-            return Response(serializer_error_response(serializer.errors))
-        serializer.save()
-        return Response(success_response())
+class CategoryAPi(CustomCreateAPIView, APIView):
+    permission_classes = (IsAuthenticated, IsAdmin)
+    serializer_class = CategoryCreateSerialzier
 
     # @swagger_auto_schema(request_body=CategoryRetrieveSerialzer)
     @swagger_auto_schema(manual_parameters=[openapi.Parameter(
@@ -37,7 +32,7 @@ class CategoryAPi(APIView):
     def get(self, request, *args, **kwargs):
         categories = Category.objects.select_related("parent").filter(parent__isnull=True)
         serializer = CategoryRetrieveSerialzer(categories, many=True, context = {'lang': request.lang})
-        return Response(serializer_without_paginator_res(serializer))
+        return Response(serializer_without_paginator_res(serializer.data))
     
 
     def patch(self, request, *args, **kwargs):
@@ -66,12 +61,6 @@ class CategoryAPi(APIView):
         return Response(success_response())
 
 
-class ProductCreateAPi(APIView):
-
-    def post(self, request, *args, **kwargs):
-        serializer = ProductCreateSerializer(data=request.data)
-        if not serializer.is_valid():
-            return Response(serializer_error_response(serializer.errors))
-        serializer.save()
-        
-        return Response(success_response())
+class ProductCreateAPi(CustomCreateAPIView, APIView):
+    permission_classes = (IsAuthenticated, IsAdmin)
+    serializer_class = ProductCreateSerializer

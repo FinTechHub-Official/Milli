@@ -6,6 +6,7 @@ from api.v1.utilis.abstract_classes import (
 )
 from api.v1.user.models import Seller
 
+
 class Category(AbstractBaseClass):
     icon = models.ImageField(upload_to='product/category/icons/', blank=True, null=True)
     parent = models.ForeignKey('self', on_delete=models.SET_NULL, blank=True, null=True, related_name='children')
