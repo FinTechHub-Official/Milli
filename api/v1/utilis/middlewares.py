@@ -23,6 +23,7 @@ class LanguageMiddleware(object):
                 return response
 
             language = request.META.get('HTTP_ACCEPT_LANGUAGE')
+            method_name = request.META.get('HTTP_ACCEPT_METHOD')
             if language not in ['uz-LN', 'uz-KR', 'ru-RU', 'en-US']:
                 response = Response(lang_error_response(lang=language))
                 response.accepted_renderer = JSONRenderer()
@@ -32,6 +33,8 @@ class LanguageMiddleware(object):
                 return response
 
             request.lang = language
+            request.method_name = method_name
+            print(request.method_name)
         response = self.get_response(request)
         return response
 

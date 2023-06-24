@@ -173,7 +173,8 @@ CORS_ALLOW_HEADERS = (
     "user-agent",
     "x-csrftoken",
     "x-requested-with",
-    'HTTP_ACCEPT_LANGUAGE'
+    'HTTP_ACCEPT_LANGUAGE',
+    "HTTP_ACCEPT_METHOD"
 )
 
 

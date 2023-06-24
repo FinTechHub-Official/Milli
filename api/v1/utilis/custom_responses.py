@@ -34,3 +34,9 @@ def serializer_without_paginator_res(serializer_data):
         'status': True,
         "data": serializer_data
     }
+
+def params_error_repsonse():
+    return {
+        'status': False,
+        "error": "Given params incorrect or not given"
+    }
