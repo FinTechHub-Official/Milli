@@ -34,10 +34,9 @@ class CategoryAPi(CustomCreateAPIView, APIView):
             ),])
     def get(self, request, *args, **kwargs):
         categories = get_active_category_queryset()
-        if request.method_name == "category.children":
-            category_id = request.query_params.get('category_id')
-            if not category_id: return Response(params_error_repsonse())
-            categories = categories.filter(parent_id=category_id).order_by("-id")
+        parent_id = request.query_params.get('parent_id')
+        if parent_id:
+            categories = categories.filter(parent_id=parent_id).order_by("-id")
             serializer = CategoryChildrenSerialzer(categories, many=True)
             return Response(serializer_without_paginator_res(serializer.data))
         else:
