@@ -20,6 +20,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# Third party apps
+INSTALLED_APPS += [
+    'corsheaders',
+    'rest_framework_swagger',
+    'rest_framework',
+    'drf_yasg',
+    'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
+    # 'django_hosts',
+]
+
 # Project apps
 INSTALLED_APPS += [
     'api.v1.user',
@@ -29,15 +40,7 @@ INSTALLED_APPS += [
     'api.v1.warehouse',
 ]
 
-# Third party apps
-INSTALLED_APPS += [
-    'corsheaders',
-    'rest_framework_swagger',
-    'rest_framework',
-    'drf_yasg',
-    'rest_framework_simplejwt',
-    'rest_framework_simplejwt.token_blacklist',
-]
+
 
 
 MIDDLEWARE = [

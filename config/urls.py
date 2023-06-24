@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
+# from django_hosts import patterns, host
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -22,6 +23,14 @@ schema_view = get_schema_view(
     permission_classes=(permissions.IsAuthenticated,),
 )
 # ends here
+
+
+# urlpatterns = [
+#     # Other URL patterns...
+#     host(r'domain1', 'your_app1.urls', name='domain1'),
+#     host(r'domain2', 'your_app2.urls', name='domain2'),
+# ]
+
 
 urlpatterns = [
     path('milli-admin/', admin.site.urls),

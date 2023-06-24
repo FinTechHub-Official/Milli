@@ -35,10 +35,21 @@ class CategoryAPi(CustomCreateAPIView, APIView):
     def get(self, request, *args, **kwargs):
         categories = get_active_category_queryset()
         parent_id = request.query_params.get('parent_id')
-        if parent_id:
+        parent =  categories.filter(id=parent_id).first()
+        if parent:
             categories = categories.filter(parent_id=parent_id).order_by("-id")
             serializer = CategoryChildrenSerialzer(categories, many=True)
-            return Response(serializer_without_paginator_res(serializer.data))
+            return Response({
+                'status': True,
+                'data': serializer.data,
+                'parent': {
+                    'id': parent.id,
+                    'title_ln': parent.title_ln,
+                    'title_kr': parent.title_kr,
+                    'title_ru': parent.title_ru,
+                    'title_en': parent.title_en
+                }
+            })
         else:
             categories = categories.filter(parent__isnull=True)
             serializer = CategoryChildrenSerialzer(categories, many=True)

@@ -13,6 +13,17 @@ class LanguageMiddleware(object):
         self.get_response = get_response
 
     def __call__(self, request, *args, **kwargs):
+        if request.path  in get_not_lang_api():
+            method = request.method
+            match method:
+                case 'POST':
+                    pass
+                case 'GET':
+                    pass
+                case 'PATCH':
+                    pass
+                case 'DELETE':
+                    pass
         # if request.path  in get_not_lang_api():
         #     if not request.META.get('HTTP_ACCEPT_LANGUAGE'):
         #         response = Response(lang_not_given_response())

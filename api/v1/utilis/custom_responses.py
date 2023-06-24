@@ -29,7 +29,7 @@ def lang_not_given_response():
         'error': "Language not given!"
     }
 
-def serializer_without_paginator_res(serializer_data):
+def serializer_without_paginator_res(serializer_data, **kwargs):
     return {
         'status': True,
         "data": serializer_data
