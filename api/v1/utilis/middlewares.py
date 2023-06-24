@@ -13,28 +13,28 @@ class LanguageMiddleware(object):
         self.get_response = get_response
 
     def __call__(self, request, *args, **kwargs):
-        if request.path  in get_not_lang_api():
-            if not request.META.get('HTTP_ACCEPT_LANGUAGE'):
-                response = Response(lang_not_given_response())
-                response.accepted_renderer = JSONRenderer()
-                response.accepted_media_type = "application/json"
-                response.renderer_context = {}
-                response.render()
-                return response
+        # if request.path  in get_not_lang_api():
+        #     if not request.META.get('HTTP_ACCEPT_LANGUAGE'):
+        #         response = Response(lang_not_given_response())
+        #         response.accepted_renderer = JSONRenderer()
+        #         response.accepted_media_type = "application/json"
+        #         response.renderer_context = {}
+        #         response.render()
+        #         return response
 
-            language = request.META.get('HTTP_ACCEPT_LANGUAGE')
-            method_name = request.META.get('HTTP_ACCEPT_METHOD')
-            if language not in ['uz-LN', 'uz-KR', 'ru-RU', 'en-US']:
-                response = Response(lang_error_response(lang=language))
-                response.accepted_renderer = JSONRenderer()
-                response.accepted_media_type = "application/json"
-                response.renderer_context = {}
-                response.render()
-                return response
-
-            request.lang = language
-            request.method_name = method_name
-            print(request.method_name)
+        #     language = request.META.get('HTTP_ACCEPT_LANGUAGE')
+        #     method_name = request.META.get('HTTP_ACCEPT_METHOD')
+        #     if language not in ['uz-LN', 'uz-KR', 'ru-RU', 'en-US']:
+        #         response = Response(lang_error_response(lang=language))
+        #         response.accepted_renderer = JSONRenderer()
+        #         response.accepted_media_type = "application/json"
+        #         response.renderer_context = {}
+        #         response.render()
+        #         return response
+        language = request.META.get('HTTP_ACCEPT_LANGUAGE')
+        method_name = request.META.get('HTTP_ACCEPT_METHOD')
+        request.lang = language
+        request.method_name = method_name
         response = self.get_response(request)
         return response
 
