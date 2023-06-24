@@ -22,7 +22,7 @@ from api.v1.utilis.generic_mixins import CustomCreateAPIView
 
 
 class CategoryAPi(CustomCreateAPIView, APIView):
-    permission_classes = (IsAuthenticated, IsAdmin)
+    # permission_classes = (IsAuthenticated, IsAdmin)
     serializer_class = CategoryCreateSerialzier
 
     # @swagger_auto_schema(request_body=CategoryRetrieveSerialzer)
@@ -68,5 +68,5 @@ class CategoryAPi(CustomCreateAPIView, APIView):
 
 
 class ProductCreateAPi(CustomCreateAPIView, APIView):
-    permission_classes = (IsAuthenticated, IsAdmin)
+    # permission_classes = (IsAuthenticated, IsAdmin)
     serializer_class = ProductCreateSerializer
