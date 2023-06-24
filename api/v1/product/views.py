@@ -22,7 +22,7 @@ from api.v1.utilis.generic_mixins import CustomCreateAPIView
 
 
 class CategoryAPi(CustomCreateAPIView, APIView):
-    # permission_classes = (IsAuthenticated, IsAdmin)
+    permission_classes = (IsAuthenticated, IsAdmin)
     serializer_class = CategoryCreateSerialzier
 
     # @swagger_auto_schema(request_body=CategoryRetrieveSerialzer)
@@ -41,8 +41,8 @@ class CategoryAPi(CustomCreateAPIView, APIView):
             serializer = CategoryChildrenSerialzer(categories, many=True)
             return Response(serializer_without_paginator_res(serializer.data))
         else:
-            categories = categories.filter(parent__isnull=True)
-            serializer = CategoryRetrieveSerialzer(categories, many=True, context = {'lang': request.lang, 'role': request.user.role})
+            # categories = categories.filter(parent__isnull=True)
+            serializer = CategoryChildrenSerialzer(categories, many=True)
             return Response(serializer_without_paginator_res(serializer.data))
     
 
