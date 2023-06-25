@@ -234,31 +234,4 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
-<<<<<<< HEAD
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 241ee74 (..)
-
-<<<<<<< HEAD
-# SIMPLE_JWT = {
-#   "TOKEN_OBTAIN_SERIALIZER": "api.v1.user.serializers.MyTokenObtainPairSerializer",
-# }
-=======
-SIMPLE_JWT = {
-  "TOKEN_OBTAIN_SERIALIZER": "api.v1.user.serializers.MyTokenObtainPairSerializer",
-}
-=======
-}
->>>>>>> d3bee24 (deployed from server)
->>>>>>> a745e24 (deployed from server)
-<<<<<<< HEAD
->>>>>>> 788e198 (deployed from server)
-=======
-=======
->>>>>>> 452ada1 (..)
->>>>>>> 241ee74 (..)
-=======
->>>>>>> b725556 (..)
