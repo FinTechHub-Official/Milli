@@ -3,6 +3,7 @@ from api.v1.utilis.custom_responses import (
     lang_error_response,
     lang_not_given_response
 )
+from django.conf import settings
 from .not_lang_apis import get_not_lang_api
 from rest_framework.renderers import JSONRenderer
 

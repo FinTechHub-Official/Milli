@@ -6,14 +6,7 @@ load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = bool(os.getenv('DEBUG') == 'True')
-
 ALLOWED_HOSTS = ["*", ] if DEBUG else os.getenv('ALLOWED_HOSTS').split(',')
-
-# SUBDOMAINS
-SUBDOMAINS = {
-    'api': 'api.urls',
-    'admin': 'admin.urls',
-}
 
 # Application definition
 INSTALLED_APPS = [
@@ -35,7 +28,7 @@ INSTALLED_APPS += [
     'drf_yasg',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    # 'django_hosts',
+    'django_hosts'
 ]
 
 # Project apps
@@ -49,8 +42,12 @@ INSTALLED_APPS += [
 X_FRAME_OPTIONS='SAMEORIGIN'
 
 
-
+# THIRD PARTY MIDDLWARES
 MIDDLEWARE = [
+    'django_hosts.middleware.HostsRequestMiddleware',
+]
+
+MIDDLEWARE += [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -61,14 +58,22 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# THIRD PARTY MIDDLEWARES
+MIDDLEWARE += [
+    'django_hosts.middleware.HostsResponseMiddleware'
+]
+
 # CUSTOM MIDDLEWARE
 MIDDLEWARE += [
     'api.v1.utilis.middlewares.LanguageMiddleware'
 ]
 
+
+# HOST CONF
 ROOT_URLCONF = 'config.urls'
-# ROOT_HOSTCONF = 'config.urls'
-# DEFAULT_HOST = '127.0.0.1:8000'
+ROOT_HOSTCONF = 'config.hosts'
+DEFAULT_HOST = 'localhost'
+
 
 TEMPLATES = [
     {
