@@ -162,6 +162,5 @@ cython_debug/
 
 # CUSTOM FOLDERS
 migrations/
-static-media/
+# static-media/
 Pipfile
-Pipfile.lock

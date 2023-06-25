@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
-# from django_hosts import patterns, host
+from django_hosts import patterns, host
 from django.conf.urls.static import static
 from django.conf import settings
-
 
 # drf_yasg code starts here
 from rest_framework import permissions
@@ -27,14 +26,12 @@ schema_view = get_schema_view(
 
 # urlpatterns = [
 #     # Other URL patterns...
-#     host(r'domain1', 'your_app1.urls', name='domain1'),
-#     host(r'domain2', 'your_app2.urls', name='domain2'),
+#     host(r'milli', 'api.v1.user.urls', name='domain1'),
+#     # host(r'domain2', 'your_app2.urls', name='domain2'),
 # ]
 
 
 urlpatterns = [
-    path('milli-admin/', admin.site.urls),
-
     # SWAGGER
     path('milli-schema/',schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('milli-api-doc/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
@@ -45,7 +42,15 @@ urlpatterns = [
     path('api/v1/product/', include("api.v1.product.urls")),
     path('api/v1/user/', include("api.v1.user.urls")),
     path('api/v1/warehouse/', include("api.v1.warehouse.urls")),
+
+    # admin
+    path('', admin.site.urls),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+admin.site.site_header = "Milli Market Admin"
+admin.site.site_title = "Milli Market Admin Portal"
+admin.site.index_title = "Welcome to Milli Market Portal"
