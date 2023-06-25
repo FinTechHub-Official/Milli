@@ -7,8 +7,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = bool(os.getenv('DEBUG') == 'True')
 
-
 ALLOWED_HOSTS = ["*", ] if DEBUG else os.getenv('ALLOWED_HOSTS').split(',')
+
+# SUBDOMAINS
+SUBDOMAINS = {
+    f'{os.getenv("SUBDOMAIN1")}': 'api.urls',
+    f'{os.getenv("SUBDOMAIN2")}': 'admin.urls',
+}
 
 # Application definition
 INSTALLED_APPS = [
