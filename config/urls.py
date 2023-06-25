@@ -42,8 +42,8 @@ urlpatterns = [
     # path('api/v1/product/', include("api.v1.product.urls")),
     # path('api/v1/user/', include("api.v1.user.urls")),
     # path('api/v1/warehouse/', include("api.v1.warehouse.urls")),
-    path('api/v1/', include('urls.api.urls'), {'subdomain': 'api'}),
-    path('api/v1', include('urls.admin.urls'), {'subdomain': 'admin_api'}),
+    path('api/v1/', include('urls.api.urls', namespace='api')),
+    path('api/v1', include('urls.admin.urls', namespace='admin')),
 
     # admin
     path('', admin.site.urls),

@@ -11,8 +11,8 @@ ALLOWED_HOSTS = ["*", ] if DEBUG else os.getenv('ALLOWED_HOSTS').split(',')
 
 # SUBDOMAINS
 SUBDOMAINS = {
-    f'{os.getenv("SUBDOMAIN1")}': 'api.urls',
-    f'{os.getenv("SUBDOMAIN2")}': 'admin.urls',
+    'api': 'api.urls',
+    'admin': 'admin.urls',
 }
 
 # Application definition
