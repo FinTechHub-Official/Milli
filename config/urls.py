@@ -34,19 +34,7 @@ urlpatterns = [
     path('milli-api-doc/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('milli-redoc/', schema_view.with_ui('redoc', cache_timeout=0),name='schema-redoc'),
 
-<<<<<<< HEAD
     #ADMIN PANEL
-=======
-    # API V1
-    # path('api/v1/proposal/', include("api.v1.proposal.urls")),
-    # path('api/v1/product/', include("api.v1.product.urls")),
-    # path('api/v1/user/', include("api.v1.user.urls")),
-    # path('api/v1/warehouse/', include("api.v1.warehouse.urls")),
-    path('api/v1/', include('urls.api.urls', namespace='api')),
-    path('api/v1', include('urls.admin.urls', namespace='admin_urls')),
-
-    # admin
->>>>>>> a9d5066 (..)
     path('', admin.site.urls),
 ]
 
