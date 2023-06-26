@@ -39,8 +39,8 @@ class CategoryAPi(APIView):
     def get(self, request, *args, **kwargs):
         categories = get_active_category_queryset()
         parent_id = request.query_params.get('parent_id')
-        parent =  categories.filter(id=parent_id).first()
-        if parent:
+        if parent_id:
+            parent =  categories.filter(id=parent_id).first()
             categories = categories.filter(parent_id=parent_id).order_by("-id")
             serializer = CategoryChildrenSerialzer(categories, many=True)
             return Response({

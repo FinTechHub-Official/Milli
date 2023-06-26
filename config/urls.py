@@ -7,6 +7,7 @@ from django.conf import settings
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from api.v1.utilis.permissions import IsAdmin
 
 
 schema_view = get_schema_view(
@@ -19,7 +20,7 @@ schema_view = get_schema_view(
         license=openapi.License(name="Awesome IP"),
     ),
     public=True,
-    permission_classes=(permissions.IsAuthenticated,),
+    permission_classes=(permissions.IsAuthenticated, IsAdmin),
 )
 # ends here
 
