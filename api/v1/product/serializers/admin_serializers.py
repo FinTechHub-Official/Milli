@@ -82,7 +82,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         model = Product
         fields = (
             'seller', 'category', 'title_ln', 'title_kr', 'title_ru', 'title_en',
-            'description_ln', 'description_kr', 'description_ru', 'description_en',
+            # 'description_ln', 'description_kr', 'description_ru', 'description_en',
             'attributes_ln', 'attributes_kr', 'attributes_ru', 'attributes_en',
             'characteristic', # 'images'
         )
