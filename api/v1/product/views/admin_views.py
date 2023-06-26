@@ -1,9 +1,15 @@
-from api.v1.utilis.get_queries import get_active_category_queryset, get_category_queryset
+from api.v1.utilis.get_queries import (
+    get_active_category_queryset,
+    get_category_queryset,
+    get_active_product_queryset
+)
 from rest_framework.pagination import PageNumberPagination
 from api.v1.product.serializers.admin_serializers import (
     CategoryChildrenSerialzer,
     CategoryCreateSerialzier,
-    ProductCreateSerializer
+    ProductCreateSerializer,
+    ProductDetailSerialzier,
+    ProductGetSerializer
 )
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -24,10 +30,19 @@ class ProductAPi(CustomCreateAPIView, APIView):
     """Product create for seller"""
     permission_classes = (IsAuthenticated, IsAdmin)
     serializer_class = ProductCreateSerializer
-    pagination_class = (PageNumberPagination,)
+    pagination_class = PageNumberPagination
 
     def get(self, request, *args, **kwargs):
-        pass
+        queryset = get_active_product_queryset()
+        product_id = request.query_params.get('product_id')
+        if not product_id:
+            paginated_queryset = self.paginate_queryset(queryset)  # Paginate the queryset
+            serializer = ProductGetSerializer(paginated_queryset, many=True)
+            paginated_res = self.get_paginated_response(serializer.data)
+            return paginated_res
+        product = queryset.filter(id=product_id).first()
+        serializer = ProductDetailSerialzier(product)
+        return Response(serializer_without_paginator_res(serializer.data))
 
 
 class CategoryAPi(CustomCreateAPIView, APIView):

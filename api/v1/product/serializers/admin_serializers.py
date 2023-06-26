@@ -131,3 +131,89 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             pass
         return res
     
+
+class ProductGetSerializer(serializers.ModelSerializer):
+    title = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = ('id', 'title', 'created_at', 'seller', 'category')
+
+    def get_title(self, obj):
+        return {
+            'ln': obj.title_ln,
+            'kr': obj.title_kr,
+            'ru': obj.title_ru,
+            'en': obj.title_en,
+        }
+    
+    def to_representation(self, instance):
+        res = super().to_representation(instance)
+        if res.get("seller"):
+            res['seller'] = {
+                'id': instance.seller.id,
+                'first_name': instance.seller.first_name,
+                'phone_number': instance.seller.phone_number,
+            }
+        if res.get('category'):
+            res['category'] = {
+                'id': instance.category.id,
+                'title': {
+                    'ln': instance.category.title_ln,
+                    'kr': instance.category.title_kr,
+                    'ru': instance.category.title_ru,
+                    'en': instance.category.title_en,
+                }
+            }
+        return res
+
+
+class ProductDetailSerialzier(serializers.ModelSerializer):
+    characteristics = serializers.SerializerMethodField()
+    attributes = serializers.SerializerMethodField()
+    title = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Product
+        fields = (
+            'id', 'title', 'created_at', 'seller', 'category', 'attributes', 'characteristics'
+        )
+    
+    def get_title(self, obj):
+        return {
+            'ln': obj.title_ln,
+            'kr': obj.title_kr,
+            'ru': obj.title_ru,
+            'en': obj.title_en,
+        }
+    
+    def get_attributes(self, obj):
+        return {
+            'ln': obj.attributes_ln,
+            'kr': obj.attributes_kr,
+            'ru': obj.attributes_ru,
+            'en': obj.attributes_en,
+        }
+    
+    def get_characteristics(self, obj):
+        pass
+
+    def to_representation(self, instance):
+        res = super().to_representation(instance)
+        if res.get("seller"):
+            res['seller'] = {
+                'id': instance.seller.id,
+                'first_name': instance.seller.first_name,
+                'phone_number': instance.seller.phone_number,
+            }
+        if res.get('category'):
+            res['category'] = {
+                'id': instance.category.id,
+                'title': {
+                    'ln': instance.category.title_ln,
+                    'kr': instance.category.title_kr,
+                    'ru': instance.category.title_ru,
+                    'en': instance.category.title_en,
+                }
+            }
+        return res
