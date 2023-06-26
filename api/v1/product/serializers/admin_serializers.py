@@ -1,6 +1,5 @@
 from rest_framework import serializers
-from rest_framework.fields import empty
-from .models import Category, Characteristic, Product
+from ..models import Category, Characteristic, Product
 from django.db import transaction
 import datetime
 
@@ -76,7 +75,8 @@ class CategoryChildrenSerialzer(serializers.ModelSerializer):
 
 class ProductCreateSerializer(serializers.ModelSerializer):
     characteristic = serializers.ListField()
-    images = serializers.SerializerMethodField()
+    seller = serializers.PrimaryKeyRelatedField(read_only=True)
+    # images = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -84,7 +84,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             'seller', 'category', 'title_ln', 'title_kr', 'title_ru', 'title_en',
             'description_ln', 'description_kr', 'description_ru', 'description_en',
             'attributes_ln', 'attributes_kr', 'attributes_ru', 'attributes_en',
-            'characteristic', 'images'
+            'characteristic', # 'images'
         )
     
     def create_characteristic(self, product_id, characteristics, parent_id=None):

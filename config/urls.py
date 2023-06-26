@@ -26,8 +26,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     # API V1
     path('api/v1/user/', include("api.v1.user.urls.admin_urls")),
-    # path('api/v1/proposal/', include("api.v1.proposal.urls")),
-    # path('api/v1/product/', include("api.v1.product.urls.admin_urls")),
+    path('api/v1/product/', include("api.v1.product.urls.admin_urls")),
     # path('api/v1/warehouse/', include("api.v1.warehouse.urls")),
 
     #SWAGGER URLS

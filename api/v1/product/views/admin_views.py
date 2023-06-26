@@ -1,9 +1,7 @@
 from api.v1.utilis.get_queries import get_active_category_queryset, get_category_queryset
-from api.v1.product.models import Category
-from api.v1.product.serializers import (
+from api.v1.product.serializers.admin_serializers import (
     CategoryChildrenSerialzer,
     CategoryCreateSerialzier,
-    CategoryRetrieveSerialzer,
     ProductCreateSerializer
 )
 from rest_framework.views import APIView
@@ -21,8 +19,14 @@ from api.v1.utilis.permissions import IsAdmin
 from api.v1.utilis.generic_mixins import CustomCreateAPIView
 
 
-class CategoryAPi(CustomCreateAPIView, APIView):
-    # permission_classes = (IsAuthenticated, IsAdmin)
+class ProductCreateAPi(CustomCreateAPIView, APIView):
+    """Product create for seller"""
+    permission_classes = (IsAuthenticated, IsAdmin)
+    serializer_class = ProductCreateSerializer
+
+
+class CategoryAPi(APIView):
+    permission_classes = (IsAuthenticated, IsAdmin)
     serializer_class = CategoryCreateSerialzier
 
     # @swagger_auto_schema(request_body=CategoryRetrieveSerialzer)
@@ -73,10 +77,3 @@ class CategoryAPi(CustomCreateAPIView, APIView):
         category.is_deleted = True
         category.save()
         return Response(success_response())
-
-
-
-
-class ProductCreateAPi(CustomCreateAPIView, APIView):
-    # permission_classes = (IsAuthenticated, IsAdmin)
-    serializer_class = ProductCreateSerializer
