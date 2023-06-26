@@ -1,4 +1,5 @@
 from api.v1.utilis.get_queries import get_active_category_queryset, get_category_queryset
+from rest_framework.pagination import PageNumberPagination
 from api.v1.product.serializers.admin_serializers import (
     CategoryChildrenSerialzer,
     CategoryCreateSerialzier,
@@ -19,13 +20,17 @@ from api.v1.utilis.permissions import IsAdmin
 from api.v1.utilis.generic_mixins import CustomCreateAPIView
 
 
-class ProductCreateAPi(CustomCreateAPIView, APIView):
+class ProductAPi(CustomCreateAPIView, APIView):
     """Product create for seller"""
     permission_classes = (IsAuthenticated, IsAdmin)
     serializer_class = ProductCreateSerializer
+    pagination_class = (PageNumberPagination,)
+
+    def get(self, request, *args, **kwargs):
+        pass
 
 
-class CategoryAPi(APIView):
+class CategoryAPi(CustomCreateAPIView, APIView):
     permission_classes = (IsAuthenticated, IsAdmin)
     serializer_class = CategoryCreateSerialzier
 
