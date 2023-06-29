@@ -5,6 +5,7 @@ from api.v1.utilis.abstract_classes import (
     AbstractDefaultClass
 )
 from api.v1.user.models import Seller
+from django.db import connection
 
 
 class Category(AbstractBaseClass):
@@ -16,7 +17,7 @@ class Category(AbstractBaseClass):
 
 
 class Product(AbstractBaseClass):
-    seller = models.ForeignKey(Seller, on_delete=models.SET_NULL, null=True, blank=True)
+    seller = models.ForeignKey(Seller, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     attributes_ln = models.JSONField(blank=True, null=True, default=dict)
     attributes_kr = models.JSONField(blank=True, null=True, default=dict)
@@ -28,11 +29,13 @@ class Product(AbstractBaseClass):
 
 
 class Characteristic(AbstractBaseTitleClass):
-    is_title = models.BooleanField(default=False)
+    key = models.CharField(max_length=255, blank=True, null=True)
+    value = models.CharField(max_length=100, blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     parent = models.ForeignKey(
         'self', on_delete=models.SET_NULL, null=True, blank=True, related_name='parent_characteristic'
     )
+    linked_key = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self) -> str:
         return f"{self.title_ln}"

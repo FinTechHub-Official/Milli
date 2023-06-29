@@ -1,6 +1,6 @@
+from api.v1.product.models import Category
 from api.v1.utilis.get_queries import (
     get_active_category_queryset,
-    get_category_queryset,
     get_active_product_queryset
 )
 from rest_framework.pagination import PageNumberPagination
@@ -36,7 +36,7 @@ class ProductAPi(CustomCreateAPIView, APIView):
         queryset = get_active_product_queryset()
         product_id = request.query_params.get('product_id')
         if not product_id:
-            paginated_queryset = self.paginate_queryset(queryset)  # Paginate the queryset
+            paginated_queryset = self.paginate_queryset(queryset)
             serializer = ProductGetSerializer(paginated_queryset, many=True)
             paginated_res = self.get_paginated_response(serializer.data)
             return paginated_res

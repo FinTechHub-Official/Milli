@@ -49,8 +49,8 @@ class CategoryRetrieveSerialzer(serializers.ModelSerializer):
                 'ru-RU': ('title_ru',),
                 'en-US': ('title_en',),
             }
-            title_field, description_field = language_fields.get(lang, ('title',))
-            res['title'] = getattr(instance, title_field, None)
+            title_field = language_fields.get(lang, ('title',))
+            res['title'] = getattr(instance, title_field[0], None)
             return res
 
 
@@ -75,32 +75,55 @@ class CategoryChildrenSerialzer(serializers.ModelSerializer):
 
 class ProductCreateSerializer(serializers.ModelSerializer):
     characteristic = serializers.ListField()
-    seller = serializers.PrimaryKeyRelatedField(read_only=True)
     # images = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
         fields = (
             'seller', 'category', 'title_ln', 'title_kr', 'title_ru', 'title_en',
-            # 'description_ln', 'description_kr', 'description_ru', 'description_en',
             'attributes_ln', 'attributes_kr', 'attributes_ru', 'attributes_en',
             'characteristic', # 'images'
         )
+        extra_kwargs = {
+            "seller": {"allow_null": False, "required": True},
+            "category": {"allow_null": False, "required": True},
+            "title_ln": {"allow_null": False, "required": True},
+            "title_kr": {"allow_null": False, "required": True},
+            "title_ru": {"allow_null": False, "required": True},
+            "title_en": {"allow_null": False, "required": True},
+        }
     
     def create_characteristic(self, product_id, characteristics, parent_id=None):
-        with transaction.atomic():
-            for character in characteristics:
-                parent_character = Characteristic(
+        for characteristic in characteristics:
+            if characteristic.get("linked_keys"):
+                for linked in characteristic.get("linked_keys"):
+                    character = Characteristic(
+                        title_ln = characteristic.get("title_ln"),
+                        title_kr = characteristic.get("title_kr"),
+                        title_ru = characteristic.get("title_ru"),
+                        title_en = characteristic.get("title_en"),
+                        linked_key=linked,
+                        key = characteristic.get("key"),
+                        product_id=product_id,
+                        parent_id=parent_id
+                    )
+                    character.save()
+            else:
+                character = Characteristic(
+                    title_ln = characteristic.get("title_ln"),
+                    title_kr = characteristic.get("title_kr"),
+                    title_ru = characteristic.get("title_ru"),
+                    title_en = characteristic.get("title_en"),
+                    key = characteristic.get("key"),
                     product_id=product_id,
-                    parent_id=parent_id,
-                    title_ln=character.get('title_ln'),
-                    title_kr=character.get('title_kr'),
-                    title_ru=character.get('title_ru'),
-                    title_en=character.get('title_en')
+                    parent_id=parent_id
                 )
-                parent_character.save()
-                if character.get("values"):
-                    self.create_characteristic(product_id, character.get("values"), parent_character.id)
+                character.save()
+                if characteristic.get("values"):
+                    self.create_characteristic(
+                        product_id, characteristic.get("values"), parent_id=character.id
+                    )
+
 
     # def save_images(self, images, product_id):
     #     product_images = []

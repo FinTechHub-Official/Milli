@@ -28,7 +28,7 @@ INSTALLED_APPS += [
     'drf_yasg',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    'django_hosts'
+    'django_hosts',
 ]
 
 # Project apps
@@ -58,15 +58,16 @@ MIDDLEWARE += [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# CUSTOM MIDDLEWARE
+MIDDLEWARE += [
+    'api.v1.utilis.middlewares.LanguageMiddleware'
+]
+
 # THIRD PARTY MIDDLEWARES
 MIDDLEWARE += [
     'django_hosts.middleware.HostsResponseMiddleware'
 ]
 
-# CUSTOM MIDDLEWARE
-MIDDLEWARE += [
-    'api.v1.utilis.middlewares.LanguageMiddleware'
-]
 
 
 # HOST CONF

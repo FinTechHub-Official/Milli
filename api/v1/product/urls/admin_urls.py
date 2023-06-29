@@ -1,7 +1,7 @@
 from django.urls import path
 from api.v1.product.views.admin_views import (
     CategoryAPi,
-    ProductAPi
+    ProductAPi,
 )
 
 

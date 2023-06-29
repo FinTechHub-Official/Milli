@@ -13,7 +13,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title_ln', 'category', 'seller', 'is_deleted', 'is_active')
+    list_display = (
+        'id', 'title_ln', 'category', 'seller', 'is_deleted', 'is_active')
 
 
 @admin.register(Characteristic)

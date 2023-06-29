@@ -1,5 +1,7 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.db.models import manager
+from django.db.models.query import QuerySet
+from .enums import UserRole
 
 
 class CustomManager(BaseUserManager):
@@ -27,11 +29,16 @@ class CustomManager(BaseUserManager):
         return self.create_user(phone_number, role, password, **extra_fields)
 
 
-class ClientManager(manager.Manager):
+class ClientManager(CustomManager.from_queryset(QuerySet)):
     def get_queryset(self):
-        return super().get_queryset().filter(role="client")
+        return super().get_queryset().filter(role='client')
     
 
-class SellerManager(manager.Manager):
+class SellerManager(CustomManager.from_queryset(QuerySet)):
     def get_queryset(self):
-        return super().get_queryset().filter(role="seller")
+        return super().get_queryset().filter(role='seller')
+    
+
+class AdminManager(CustomManager.from_queryset(QuerySet)):
+    def get_queryset(self):
+        return super().get_queryset().filter(role='admin')

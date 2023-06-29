@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, AbstractUser
 from api.v1.user.enums import UserRole
 from api.v1.user.managers import (
+    AdminManager,
     CustomManager,
     ClientManager,
     SellerManager
@@ -26,10 +27,22 @@ class User(AbstractBaseUser, PermissionsMixin):
     def __str__(self) -> str:
         return self.phone_number
     
+class Seller(User):
+    objects = SellerManager()
+
+    class Meta:
+        proxy = True
 
 class Client(User):
     objects = ClientManager()
 
+    class Meta:
+        proxy = True
 
-class Seller(User):
-    objects = SellerManager()
+
+
+class Admin(User):
+    objects = AdminManager()
+
+    class Meta:
+        proxy = True
