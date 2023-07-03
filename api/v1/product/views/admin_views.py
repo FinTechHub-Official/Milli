@@ -1,4 +1,5 @@
 from api.v1.product.models import Category
+from api.v1.product.sql_query.admin_query import save_categories
 from api.v1.utilis.get_queries import (
     get_active_category_queryset,
     get_active_product_queryset
@@ -97,3 +98,11 @@ class CategoryAPi(CustomCreateAPIView, APIView):
         category.is_deleted = True
         category.save()
         return Response(success_response())
+
+
+class UzumCategory(APIView):
+    def post(self, request):
+        save_categories()
+        return Response({
+            "status": True
+        })

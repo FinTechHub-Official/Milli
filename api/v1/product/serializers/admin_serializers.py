@@ -160,7 +160,8 @@ class ProductGetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('id', 'title', 'created_at', 'seller', 'category')
+        fields = ('id', 'title', 'created_at', 'seller',
+                   'category')
 
     def get_title(self, obj):
         return {

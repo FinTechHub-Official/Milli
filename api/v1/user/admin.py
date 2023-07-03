@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # from api.v1.user.forms import MyUserCreationForm
-from .models import User, Seller # Client
+from .models import User, Seller, Client
 
 
 @admin.register(User)
@@ -15,6 +15,6 @@ class SellerAdmin(admin.ModelAdmin):
     list_display = ("id", 'first_name', 'phone_number', 'role', 'is_active')
         
 
-# @admin.register(Client)
-# class ClientAdmin(admin.ModelAdmin):
-#     list_display = ("id", 'first_name', 'phone_number', 'role', 'is_active')
+@admin.register(Client)
+class ClientAdmin(admin.ModelAdmin):
+    list_display = ("id", 'first_name', 'phone_number', 'role', 'is_active')
