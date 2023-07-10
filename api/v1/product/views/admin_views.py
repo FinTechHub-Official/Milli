@@ -58,7 +58,7 @@ class CategoryAPi(CustomCreateAPIView, APIView):
                 type=openapi.TYPE_STRING,
             ),])
     def get(self, request, *args, **kwargs):
-        categories = get_active_category_queryset()
+        categories = get_active_category_queryset().order_by('-id')
         parent_id = request.query_params.get('parent_id')
         if parent_id:
             parent =  categories.filter(id=parent_id).first()
@@ -101,6 +101,7 @@ class CategoryAPi(CustomCreateAPIView, APIView):
 
 
 class UzumCategory(APIView):
+    
     def post(self, request):
         save_categories()
         return Response({

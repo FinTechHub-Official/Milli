@@ -74,23 +74,31 @@ class CategoryChildrenSerialzer(serializers.ModelSerializer):
 
 
 class ProductCreateSerializer(serializers.ModelSerializer):
-    characteristic = serializers.ListField()
+    # characteristic = serializers.ListField()
     # images = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
         fields = (
-            'seller', 'category', 'title_ln', 'title_kr', 'title_ru', 'title_en',
+            'seller', 'category', 'country', 'brand', 
+            'title_ln', 'title_kr', 'title_ru', 'title_en',
+            'description_ln', 'description_kr', 'description_ru', 'description_en',
             'attributes_ln', 'attributes_kr', 'attributes_ru', 'attributes_en',
-            'characteristic', # 'images'
+            #'characteristic', # 'images'
         )
         extra_kwargs = {
             "seller": {"allow_null": False, "required": True},
             "category": {"allow_null": False, "required": True},
+            "country": {"allow_null": False, "required": True},
+            "brand": {"allow_null": False, "required": True},
             "title_ln": {"allow_null": False, "required": True},
             "title_kr": {"allow_null": False, "required": True},
             "title_ru": {"allow_null": False, "required": True},
             "title_en": {"allow_null": False, "required": True},
+            "description_ln": {"allow_null": False, "required": True},
+            "description_kr": {"allow_null": False, "required": True},
+            "description_ru": {"allow_null": False, "required": True},
+            "description_en": {"allow_null": False, "required": True},
         }
     
     def create_characteristic(self, product_id, characteristics, parent_id=None):
@@ -153,7 +161,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         if images:
             pass
         return res
-    
+
 
 class ProductGetSerializer(serializers.ModelSerializer):
     title = serializers.SerializerMethodField()

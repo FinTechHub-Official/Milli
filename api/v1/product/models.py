@@ -16,9 +16,19 @@ class Category(AbstractBaseClass):
         return self.title_ln
 
 
+class Brand(AbstractBaseTitleClass):
+    pass
+
+
+class Country(AbstractBaseTitleClass):
+    pass
+
+
 class Product(AbstractBaseClass):
     seller = models.ForeignKey(Seller, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    brand = models.ForeignKey(Brand, on_delete=models.SET_NULL, blank=True, null=True)
+    country = models.ForeignKey(Country, on_delete=models.SET_NULL, blank=True, null=True)
     attributes_ln = models.JSONField(blank=True, null=True, default=dict)
     attributes_kr = models.JSONField(blank=True, null=True, default=dict)
     attributes_ru = models.JSONField(blank=True, null=True, default=dict)
@@ -48,5 +58,4 @@ class ProductImage(AbstractDefaultClass):
 
     def __str__(self) -> str:
         return self.product.title_ln
-
 

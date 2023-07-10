@@ -62,7 +62,7 @@ def save_categories():
             title_ln=category.get("title")
         )
         category_obj.save()
-        time.sleep(4)
+        time.sleep(10)
         if category.get("children"):
             for category_child in category.get("children"):
                 category_child_obj = Category(
@@ -70,7 +70,7 @@ def save_categories():
                     parent_id=category_obj.id
                 )
                 category_child_obj.save()
-                time.sleep(4)
+                time.sleep(10)
                 if category_child.get("children"):
                     category_child_objs = [
                         Category(

@@ -28,8 +28,7 @@ class ImportProductToWarehouseAdmin(admin.ModelAdmin):
 
 @admin.register(ProductInWarehouse)
 class ProductInWarehouseAdmin(admin.ModelAdmin):
-    list_display = ("id", 'product', 'warehouse', 'seller',
-                     'is_active', 'is_deleted', 'created_at')
+    list_display = ("id", 'product', 'warehouse', 'seller', 'is_active', 'is_deleted', 'created_at')
 
 
 @admin.register(ImportPriceProductInWarehouse)
