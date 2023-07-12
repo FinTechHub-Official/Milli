@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from ..models import Brand, Category, Characteristic, Country, Product
-from django.db import transaction
-import datetime
+from api.v1.product.models import Brand, Category, Country, Product
 
 
 class CategoryCreateSerialzier(serializers.ModelSerializer):
