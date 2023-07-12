@@ -1,5 +1,10 @@
 from django.db import models
-
+from .enums import (
+    CharacteristicTitleLn,
+    CharacteristicTitleKr,
+    CharacteristicTitleRu,
+    CharacteristicTitleEn
+)
 
 class AbstractDefaultClass(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -31,6 +36,3 @@ class AbstractBaseClass(AbstractBaseTitleClass):
 
     class Meta:
         abstract = True
-
-
-

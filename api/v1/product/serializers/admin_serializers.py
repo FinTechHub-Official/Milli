@@ -100,67 +100,7 @@ class ProductCreateSerializer(serializers.ModelSerializer):
             "description_ru": {"allow_null": False, "required": True},
             "description_en": {"allow_null": False, "required": True},
         }
-    
-    def create_characteristic(self, product_id, characteristics, parent_id=None):
-        for characteristic in characteristics:
-            if characteristic.get("linked_keys"):
-                for linked in characteristic.get("linked_keys"):
-                    character = Characteristic(
-                        title_ln = characteristic.get("title_ln"),
-                        title_kr = characteristic.get("title_kr"),
-                        title_ru = characteristic.get("title_ru"),
-                        title_en = characteristic.get("title_en"),
-                        linked_key=linked,
-                        key = characteristic.get("key"),
-                        product_id=product_id,
-                        parent_id=parent_id
-                    )
-                    character.save()
-            else:
-                character = Characteristic(
-                    title_ln = characteristic.get("title_ln"),
-                    title_kr = characteristic.get("title_kr"),
-                    title_ru = characteristic.get("title_ru"),
-                    title_en = characteristic.get("title_en"),
-                    key = characteristic.get("key"),
-                    product_id=product_id,
-                    parent_id=parent_id
-                )
-                character.save()
-                if characteristic.get("values"):
-                    self.create_characteristic(
-                        product_id, characteristic.get("values"), parent_id=character.id
-                    )
 
-
-    # def save_images(self, images, product_id):
-    #     product_images = []
-    #     for file in images:
-    #         f_time = datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-    #         file_name = f"{f_time}_{file.name}"
-    #         saved_file_path = os.path.join('media', 'sourcing', 'comment', 'files', file_name)
-    #         os.makedirs(os.path.dirname(saved_file_path), exist_ok=True)
-    #         with open(saved_file_path, 'wb') as destination:
-    #             for chunk in file.chunks():
-    #                 destination.write(chunk)
-    #         comment_files.append(
-    #             SourcingCommentFile(
-    #                 comment_id=comment_id,
-    #                 creator_id=user_id,
-    #                 uploaded_file=saved_file_path
-    #             )
-    #         )
-    #     SourcingCommentFile.objects.bulk_create(comment_files)
-
-    def create(self, validated_data):
-        res = super().create(validated_data)
-        characteristics = validated_data.get('characteristic')
-        images = validated_data.get('images')
-        if characteristics:
-            self.create_characteristic(res.id, characteristics)
-        if images:
-            pass
-        return res
 
 
 class ProductGetSerializer(serializers.ModelSerializer):

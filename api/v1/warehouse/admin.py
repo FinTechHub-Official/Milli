@@ -33,20 +33,20 @@ class ProductInWarehouseAdmin(admin.ModelAdmin):
 
 @admin.register(ImportPriceProductInWarehouse)
 class ImportPriceProductInWarehouseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'import_product_to_warehouse', 'product_in_warehouse', 'characteristic', 'import_price')
+    list_display = ('id', 'import_product_to_warehouse', 'product_in_warehouse', 'linked_characteristic', 'import_price')
 
 
 @admin.register(SellPriceProductInWarehouse)
 class SellPriceProductInWarehouseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product_in_warehouse', 'characteristic', 'price')
+    list_display = ('id', 'product_in_warehouse', 'linked_characteristic', 'price')
 
 
 @admin.register(ImportQuantityProductInWarehouse)
 class ImportQuantityProductInWarehouseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'import_product_to_warehouse', 'product_in_warehouse', 'characteristic', 'quantity')
+    list_display = ('id', 'import_product_to_warehouse', 'product_in_warehouse', 'linked_characteristic', 'quantity')
 
 
 @admin.register(QuantityProductInWarehouse)
 class QuantityProductInWarehouseAdmin(admin.ModelAdmin):
-    list_display = ('id', 'product_in_warehouse', 'characteristic', 'quantity')
+    list_display = ('id', 'product_in_warehouse', 'linked_characteristic', 'quantity')
 

@@ -1,5 +1,6 @@
 from django.db import models
 from api.v1.product.models import (
+    LinkedCharacteristic,
     Product,
     Characteristic,
 )
@@ -39,20 +40,20 @@ class ProductInWarehouse(AbstractDefaultClass):
 class ImportPriceProductInWarehouse(AbstractDefaultClass):
     import_product_to_warehouse = models.ForeignKey(ImportProductToWarehouse, on_delete=models.SET_NULL, null=True)
     product_in_warehouse = models.ForeignKey(ProductInWarehouse, on_delete=models.SET_NULL, null=True)
-    characteristic = models.ForeignKey(Characteristic, on_delete=models.SET_NULL, null=True, blank=True)
+    linked_characteristic = models.ForeignKey(LinkedCharacteristic, on_delete=models.SET_NULL, null=True, blank=True)
     import_price = models.PositiveIntegerField(default=0)
 
 
 class SellPriceProductInWarehouse(AbstractDefaultClass):
     product_in_warehouse = models.ForeignKey(ProductInWarehouse, on_delete=models.SET_NULL, null=True)
-    characteristic = models.ForeignKey(Characteristic, on_delete=models.SET_NULL, null=True, blank=True)
+    linked_characteristic = models.ForeignKey(LinkedCharacteristic, on_delete=models.SET_NULL, null=True, blank=True)
     price = models.PositiveIntegerField(default=0)
 
 
 class ImportQuantityProductInWarehouse(AbstractDefaultClass):
     import_product_to_warehouse = models.ForeignKey(ImportProductToWarehouse, on_delete=models.SET_NULL, null=True)
     product_in_warehouse = models.ForeignKey(ProductInWarehouse, on_delete=models.SET_NULL, null=True)
-    characteristic = models.ForeignKey(Characteristic, on_delete=models.SET_NULL, null=True, blank=True)
+    linked_characteristic = models.ForeignKey(LinkedCharacteristic, on_delete=models.SET_NULL, null=True, blank=True)
     quantity = models.PositiveBigIntegerField(default=0)
 
     def __str__(self) -> str:
@@ -61,7 +62,7 @@ class ImportQuantityProductInWarehouse(AbstractDefaultClass):
 
 class QuantityProductInWarehouse(AbstractDefaultClass):
     product_in_warehouse = models.ForeignKey(ProductInWarehouse, on_delete=models.SET_NULL, null=True)
-    characteristic = models.ForeignKey(Characteristic, on_delete=models.SET_NULL, null=True, blank=True)
+    linked_characteristic = models.ForeignKey(LinkedCharacteristic, on_delete=models.SET_NULL, null=True, blank=True)
     quantity = models.PositiveBigIntegerField(default=0)
 
     def __str__(self) -> str:
