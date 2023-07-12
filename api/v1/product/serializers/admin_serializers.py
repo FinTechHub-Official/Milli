@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Category, Characteristic, Product
+from ..models import Brand, Category, Characteristic, Country, Product
 from django.db import transaction
 import datetime
 
@@ -189,3 +189,25 @@ class ProductDetailSerialzier(serializers.ModelSerializer):
                 }
             }
         return res
+
+
+class BrandSerialzier(serializers.ModelSerializer):
+    title = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Brand
+        fields = ("id", 'title')
+
+    def get_title(self, instance):
+        return instance.title_ln
+
+
+class CountrySerialzier(serializers.ModelSerializer):
+    title = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Country
+        fields = ("id", 'title')
+
+    def get_title(self, instance):
+        return instance.title_ln

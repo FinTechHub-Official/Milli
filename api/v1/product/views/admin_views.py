@@ -1,13 +1,16 @@
-from api.v1.product.models import Category
 from api.v1.product.sql_query.admin_query import save_categories
 from api.v1.utilis.get_queries import (
+    get_active_brands,
     get_active_category_queryset,
+    get_active_countries,
     get_active_product_queryset
 )
 from rest_framework.pagination import PageNumberPagination
 from api.v1.product.serializers.admin_serializers import (
+    BrandSerialzier,
     CategoryChildrenSerialzer,
     CategoryCreateSerialzier,
+    CountrySerialzier,
     ProductCreateSerializer,
     ProductDetailSerialzier,
     ProductGetSerializer
@@ -24,7 +27,7 @@ from api.v1.utilis.custom_responses import (
 )
 from rest_framework.permissions import IsAuthenticated
 from api.v1.utilis.permissions import IsAdmin
-from api.v1.utilis.generic_mixins import CustomCreateAPIView
+from api.v1.utilis.generic_mixins import CustomCreateAPIView, CustomListAPIView
 
 
 class ProductAPi(CustomCreateAPIView, APIView):
@@ -58,7 +61,7 @@ class CategoryAPi(CustomCreateAPIView, APIView):
                 type=openapi.TYPE_STRING,
             ),])
     def get(self, request, *args, **kwargs):
-        categories = get_active_category_queryset().order_by('-id')
+        categories = get_active_category_queryset()
         parent_id = request.query_params.get('parent_id')
         if parent_id:
             parent =  categories.filter(id=parent_id).first()
@@ -101,9 +104,20 @@ class CategoryAPi(CustomCreateAPIView, APIView):
 
 
 class UzumCategory(APIView):
-    
     def post(self, request):
         save_categories()
         return Response({
             "status": True
         })
+
+
+class BrandApi(CustomListAPIView):
+    permission_classes = (IsAdmin,)
+    serializer_class = BrandSerialzier
+    queryset = get_active_brands()
+
+
+class CountryApi(CustomListAPIView):
+    permission_classes = (IsAdmin,)
+    serializer_class = CountrySerialzier
+    queryset = get_active_countries()
